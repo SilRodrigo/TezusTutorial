@@ -6,8 +6,8 @@ body * {
     font-family: var(--bs-font-sans-serif) !important;
 }
 
-.header-gradient {    
-    background: linear-gradient(145deg, rgba(27,62,96,1) 0%, rgba(101,55,55,1) 72%, rgba(77,107,136,1) 100%);
+.header-gradient {
+    background: linear-gradient(145deg, rgba(27, 62, 96, 1) 0%, rgba(101, 55, 55, 1) 72%, rgba(77, 107, 136, 1) 100%);
     animation: header-intro 4s forwards;
     height: 100%;
 }
@@ -32,16 +32,29 @@ body * {
 
 .card-container .card {
     transition: .25s;
-    border-left: .25rem solid #c0335e59!important;
+    border-left: .25rem solid #c0335e59 !important;
 }
 
 .card-container .card:hover {
     transform: translateY(-10%);
-    border-left: .25rem solid #3388c059!important;
+    border-left: .25rem solid #3388c059 !important;
 }
 
-.text-primary-custom{
-    color: #1d64a9!important;
+.text-primary-custom {
+    color: #1d64a9 !important;
+}
+
+.symbol {
+    position: absolute;
+    right: 0;
+    top: -50%;
+}
+
+.symbol .tezeu {
+    top: 33%;
+    left: 33%;
+    filter: brightness(.5);
+    animation: tezeus-color-effect 3s 1.5s forwards;
 }
 
 @keyframes header-intro {
@@ -81,13 +94,14 @@ body * {
     }
 }
 
-.symbol{
-    position: absolute;
-    right: 0;
-    top: -50%;
-}
-
-.symbol .tezeu{
-    top: 33%;
-    left: 33%;
+@keyframes tezeus-color-effect {
+    0% {
+        filter: brightness(.5);
+    }
+    50%{
+        filter: brightness(1);
+    }
+    100% {
+        filter: none;
+    }
 }
