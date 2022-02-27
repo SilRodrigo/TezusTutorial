@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/tutorial.css">
+    <link rel="stylesheet" href="css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <title>loja Magento no Docker</title>
+</head>
+
+<body class="block-overflow">
+    <header class="intro">
+        <div class="container">
+            <div class="shadow card py-2">
+                <div class="card-body d-flex align-items-center">
+                    <div class="display-3 text-secondary">
+                        Instalação loja Magento no Docker para versões 2.4.2+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-info">Siga os passos abaixo para a instalação:</h6>
+                </div>
+                <div class="card-body d-flex bg-light tutorial-steps-card">
+
+                    <div class="col-6">
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body"> Pesquisa no git da Tezus o <a target="_blank"
+                                    href="https://github.com/tezusecommerce/docker-magento">Docker Magento</a>
+                            </div>
+                        </div>
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body" url-copy="https://github.com/tezusecommerce/docker-magento">
+                                Copia a URL <i class="fa-regular fa-copy"></i>
+                            </div>
+                        </div>
+                        <div class="pt-3 px-2">
+                            <h3>No terminal:</h3>
+                        </div>
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body" yt-timestamp="120">
+                                Acessa a pasta onde as Lojas ficarão salvas usando o comando 'cd'
+                            </div>
+                        </div>
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body">
+                                <pre>git clone 'colar URL copiada' "NomeLoja"</pre>
+                            </div>
+                        </div>
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body">
+                                Acessa a pasta "NomeLoja" <br>
+                                <pre>cd "NomeLoja"</pre>
+                                <pre>sudo mkdir .vscode</pre>
+                                <pre>sudo rm -r .git</pre>
+                            </div>
+                        </div>
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body">
+                                Baixe a versão para iniciar a instalação do docker
+                                <pre>bin/download 'número da versão'</pre>
+                                Insira suas chaves Magento quando solicitado
+                            </div>
+                        </div>
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body">
+                                Rode a instalação do docker
+                                <pre>bin/setup docker.tezus</pre>
+                            </div>
+                        </div>
+                        <div class="card text-black my-1" tabindex="-1">
+                            <div class="card-body">
+                                Se for preciso dados na loja, baixa o módulo SampleData
+                                <pre>bin/magento sampledata:deploy</pre>
+                                Para ver quais módulos estão ativos ou desabilitados
+                                <pre>module:status</pre>
+                                <pre>bin/magento module:enable --all (ativa todos os módulos)</pre>
+                                Desabilita o módulo TwoFactorAuth
+                                <pre>bin/magento module:disable Magento_TwoFactoAuth</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="video-container">
+                            <div id="player"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="alert-container d-flex w-100 justify-content-center" id="alertBox">
+        <div class="alert alert-success" role="alert"></div>
+    </div>
+
+    <script src="/js/youtubeApi.js"></script>
+    <script type="module">
+        import Utils from "/js/utils.js";
+
+        window.scrollTo(0, 0);
+
+        const intro_end = document.querySelector('.intro .container');
+        intro_end.addEventListener('animationend', context => {
+            if (context.animationName === 'intro-end') document.body.classList.remove('block-overflow');
+        });
+
+        function listeners() {
+            document.querySelectorAll('[url-copy]').forEach(elem =>
+                elem.addEventListener('click', elem => {
+                    Utils.copyToClipBoard(elem.target.attributes['url-copy'].value);
+                })
+            );
+
+            document.querySelectorAll('[yt-timestamp]').forEach(elem =>
+                elem.addEventListener('click', elem => {
+                    player.seekTo(elem.target.attributes['yt-timestamp'].value);
+                })
+            );
+
+            document.addEventListener('scroll', () => {
+                const initial_scroll_validation = document.querySelector('.tutorial-steps-card').getClientRects()[0].y - document.body.getClientRects()[0].y,
+                    ytPlayer = document.querySelector('#player');
+                if (window.pageYOffset < initial_scroll_validation) return ytPlayer.style.top = '';
+                ytPlayer.style.top = `${window.pageYOffset - initial_scroll_validation}px`;
+            })
+        }
+
+        listeners();        
+    </script>
+
+</body>
+
+</html>

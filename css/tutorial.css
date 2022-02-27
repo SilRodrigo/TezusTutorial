@@ -1,0 +1,126 @@
+body {
+    background-color: rgb(51 77 102) !important;
+    background-image: url('/image/tezus-logo.svg');
+    background-repeat: no-repeat;    
+    font-family: var(--bs-font-sans-serif) !important;
+}
+
+.block-overflow{
+    overflow: hidden;
+}
+
+header.intro .container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    transition: 1s;
+    animation: intro-end 1s 2s forwards; /* 3 Intro animation */
+}
+
+header .container .card{
+    animation: tuto-intro-card 1s forwards; /* 1 Intro animation */
+    min-height: 200px;        
+}
+
+header .container .card .card-body{    
+    opacity: 0;        
+    position: absolute;
+    animation: tuto-intro-inner-card .25s linear 1s forwards; /* 2 Intro animation */
+}
+
+main .container{
+    opacity: 0;
+    animation: opacity-off 1s 2s forwards ;
+}
+
+@keyframes tuto-intro-card {
+    from{
+        width: 0%;
+    }
+    to{
+        width: 100%;
+    }
+}
+
+@keyframes tuto-intro-inner-card {
+    0%{                    
+        opacity: 0;
+        position: static;
+    }
+    100%{
+        position: static;
+        opacity: 1;
+    }
+}
+
+@keyframes intro-end {
+    from{
+        height: 100vh;
+    }
+    to{
+        height: 250px;
+    }
+}
+
+@keyframes opacity-off {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.container{
+    max-width: 80% !important;
+}
+
+main .tutorial-steps-card .card-body{
+    cursor: pointer;    
+}
+
+main .tutorial-steps-card .card{
+    transition: .15s;
+}
+
+.tutorial-steps-card .card:hover{
+    border-left: .25rem solid #4e73df!important;
+}
+
+.tutorial-steps-card .card:focus{
+    border-left: .25rem solid #1cc88a!important;
+}
+
+.alert-container{
+    opacity: 0;    
+    position: fixed !important;
+    bottom: -10%;
+    transition: .25s;
+}
+
+.alert-container.show{
+    opacity: 1;
+    bottom: 0;
+}
+
+main pre{
+    padding-right: .5rem!important;
+    padding-left: .5rem!important;
+    background-color: #f8f9fc!important;
+    margin: 2px 0 !important;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.15s ease 0s;
+}
