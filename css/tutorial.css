@@ -124,3 +124,11 @@ main pre{
     height: 100%;
     transition: all 0.15s ease 0s;
 }
+
+@media screen and (max-width: 768px) {
+    .container{
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        max-width: unset !important;
+    }
+}
