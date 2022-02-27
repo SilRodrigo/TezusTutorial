@@ -19,7 +19,7 @@ header.intro .container{
 
 header .container .card{
     animation: tuto-intro-card 1s forwards; /* 1 Intro animation */
-    min-height: 200px;        
+    min-height: 150px;        
 }
 
 header .container .card .card-body{    
@@ -58,7 +58,7 @@ main .container{
         height: 100vh;
     }
     to{
-        height: 250px;
+        height: 200px;
     }
 }
 
