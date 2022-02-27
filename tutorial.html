@@ -52,13 +52,13 @@
 
     <!-- Carrega os passos do tutorial -->
     <script type="module">
-        import TutorialScreenRender from 'js/tutorialScreenRender.js';
+        import TutorialScreenRender from '/TezusTutorial/js/tutorialScreenRender.js';
         let pathToLoad = window.location.search.replace('?', '');
-        new TutorialScreenRender(document, `/assets/tutorials/${pathToLoad}.js`);
+        new TutorialScreenRender(document, `/TezusTutorial/assets/tutorials/${pathToLoad}.js`);
     </script>
 
     <!-- Carrega a API do YT  -->
-    <script src="js/youtubeApi.js"></script>
+    <script src="/TezusTutorial/js/youtubeApi.js"></script>
 
 
     <!-- Seta listeners e outras funções do JS -->
