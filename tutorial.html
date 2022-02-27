@@ -84,6 +84,7 @@
             );
 
             document.addEventListener('scroll', () => {
+                if (window.innerWidth < 768) return;
                 const initial_scroll_validation = document.querySelector('.tutorial-steps-card').getClientRects()[0].y - document.body.getClientRects()[0].y,
                     ytPlayer = document.querySelector('#player');
                 if (window.pageYOffset < initial_scroll_validation) return ytPlayer.style.top = '';
