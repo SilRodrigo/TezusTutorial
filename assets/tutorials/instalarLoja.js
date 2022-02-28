@@ -1,7 +1,7 @@
 export default {
     tutorial_title: 'Instalação loja Magento no Docker para versões 2.4.2+',
     sub_title: 'Siga os passos abaixo para a instalação:',
-    yt_link: 'IG9-zBS5Uyg',
+    yt_link: 'h5nwnsiN_Hw',
     steps: [
         new step('<a>Pesquisa no git da Tezus o Docker Magento</a>', null, 'https://github.com/tezusecommerce/docker-magento'),
         new step('Copia a URL', { 'url-copy': "https://github.com/tezusecommerce/docker-magento" }),
