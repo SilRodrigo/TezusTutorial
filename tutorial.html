@@ -80,9 +80,11 @@
                 elem.addEventListener('click', event => { Utils.copyToClipBoard(elem.attributes['url-copy'].value); })
             });
 
-            document.querySelectorAll('[yt-timestamp]').forEach(elem =>
+            document.querySelectorAll('[yt-timestamp]').forEach(elem => {
+                let timeStamp = elem.attributes['yt-timestamp'].value;
+                elem.setAttribute('fancyTime', Utils.fancyTimeFormat(timeStamp))
                 elem.addEventListener('click', event => { player.seekTo(elem.attributes['yt-timestamp'].value); })
-            );
+            });
 
             document.addEventListener('scroll', () => {
                 if (window.innerWidth < 768) return;

@@ -33,6 +33,15 @@ main .container{
     animation: opacity-off 1s 2s forwards ;
 }
 
+.card-body[yt-timestamp]:after {
+    content: attr(fancyTime);
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    font-size: 13px;
+}
+
+
 @keyframes tuto-intro-card {
     from{
         width: 0%;
