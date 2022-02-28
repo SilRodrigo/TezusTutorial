@@ -11,7 +11,7 @@ export default {
         new step('Acessa a pasta "NomeLoja"<pre>cd "NomeLoja"</pre><pre>sudo mkdir .vscode</pre><pre>sudo rm -r .git</pre>'),
         new step('Baixe a versão para iniciar a instalação do docker<pre>bin/download "número da versão"</pre><pre>Insira suas chaves Magento quando solicitado</pre>'),
         new step('Rode a instalação do docker<pre>bin/setup docker.tezus</pre>'),
-        new step('Se for preciso dados na loja, baixa o módulo SampleData<pre>bin/magento sampledata:deploy</pre>Para ver quais módulos estão ativos ou desabilitados<pre>module:status</pre><pre>bin/magento module:enable --all (ativa todos os módulos)</pre>Desabilita o módulo TwoFactorAuth<pre>bin/magento module:disable Magento_TwoFactoAuth</pre>')
+        new step('Se for preciso dados na loja, baixa o módulo SampleData<pre>bin/magento sampledata:deploy</pre>Para ver quais módulos estão ativos ou desabilitados<pre>module:status</pre><pre>bin/magento module:enable --all (ativa todos os módulos)</pre>Desabilita o módulo TwoFactorAuth<pre>bin/magento module:disable Magento_TwoFactorAuth</pre>')
     ]
 }
 
