@@ -21,6 +21,8 @@
 </head>
 
 <body>
+    <?php $urlPath = './tutorial.php' ?>
+
     <header class="page-header-ui header-gradient position-relative">
         <div class="symbol">
             <img src="image/tezus-logo.svg">
@@ -45,7 +47,7 @@
                     <div class="container">
                         <div class="row g-1">
                             <div class="col-12 col-md-4 card-container">
-                                <a href="./tutorial?instalarLoja" target="_blank">
+                                <a href="<?= $urlPath ?>?instalarLoja" target="_blank">
                                     <div class="shadow card border-left-primary py-2">
                                         <div class="card-body">
                                             <div class="font-weight-bold text-primary-custom">
@@ -56,7 +58,7 @@
                                 </a>
                             </div>
                             <div class="col-12 col-md-4 card-container">
-                                <a href="./tutorial?vinculoGit" target="_blank">
+                                <a href="<?= $urlPath ?>?vinculoGit" target="_blank">
                                     <div class="shadow card border-left-primary py-2">
                                         <div class="card-body">
                                             <div class="font-weight-bold text-primary-custom">

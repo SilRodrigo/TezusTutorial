@@ -18,7 +18,13 @@
     <title>loja Magento no Docker</title>
 </head>
 
+<?php require_once 'data_access.php'; ?>
+
 <body class="block-overflow">
+    <pre>
+        <?php 
+        ?>
+    </pre>
     <header class="intro">
         <div class="container">
             <div class="shadow card py-2">
@@ -48,7 +54,7 @@
     </main>
 
     <div class="alert-container d-flex w-100 justify-content-center" id="alertBox">
-        <div class="alert alert-success" role="alert"></div>
+        <div class="alert" role="alert"></div>
     </div>
 
     <!-- Carrega os passos do tutorial -->
@@ -97,11 +103,23 @@
 
         window.addEventListener('load', () => {
             listeners();
+            setTimeout(() => ytVideoValidation());
+
+            function ytVideoValidation() {
+                if (document.querySelector('[yt-link]') && !document.querySelector('iframe')) {
+                    Utils.showAlert('Ocorreu um erro ao carregar o vídeo, vamos atualizar a página. Aguenta aí!', 5000, 'alert-danger')
+                    setTimeout(() => {
+                        document.location.reload();
+                    }, 2000);
+                }
+            }
         });
 
         window.onbeforeunload = function () {
             window.scrollTo(0, 0);
         }
+
+
 
     </script>
 
