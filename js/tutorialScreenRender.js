@@ -1,14 +1,11 @@
 export default class TutorialScreenRender {
-    constructor(context, tutorialPath) {
+    constructor(context, object) {
         this.context = context;
-        this.tutorialPath = tutorialPath;
-        this.loadSteps(tutorialPath);
+        this.loadSteps(object);
     }
 
-    async loadSteps(path) {
-        let tutorial = await import(path);
-        if (!tutorial) return;
-        this.renderTutorial(tutorial.default)
+    async loadSteps(object) {
+        if (object) this.renderTutorial(object);
     }
 
     renderTutorial(tutorial) {
