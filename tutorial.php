@@ -51,10 +51,24 @@
         <div class="alert" role="alert"></div>
     </div>
 
-    <?php require 'config_paths.php' ?>
+    <div class="go-home-btn bg-light d-flex align-items-center" onclick="goHome()">
+        <div>
+            <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="ps-2 pe-3 back">
+            Voltar
+        </div>
+    </div>
+
+    <script>
+        function goHome(){
+            window.location.href = './';
+        }
+    </script>
 
     <!-- Carrega os passos do tutorial -->
     <?php 
+        require 'config_paths.php';
         require_once 'data_access.php';
         $dataAccess = new DataAccess();
         $result = $dataAccess->getContentById($_GET['tutorial_id']);
@@ -62,6 +76,7 @@
     <script type="module">       
         import TutorialScreenRender from '<?=URL_DEFAULT_PATH?>/js/tutorialScreenRender.js';        
         let tutorial_object = JSON.parse(<?= $result ?>);
+        if (!tutorial_object?.steps) goHome();
         new TutorialScreenRender(document, tutorial_object);
     </script>
 
@@ -111,8 +126,8 @@
 
             function ytVideoValidation() {
                 if (document.querySelector('[yt-link]') && !document.querySelector('iframe')) {
-                    Utils.showAlert('Ocorreu um erro ao carregar o vídeo, vamos atualizar a página. Aguenta aí!', 5000, 'alert-danger')
-                    setTimeout(document.location.reload, 2000);
+                    Utils.showAlert('Ops, ocorreu um erro ao carregar o vídeo. Aguenta aí!', 5000, 'alert-danger')
+                    setTimeout(() => document.location.reload(), 2000);
                 }
             }
         });
