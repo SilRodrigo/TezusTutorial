@@ -20,9 +20,7 @@
     <title>Tutoriais</title>
 </head>
 
-<body>
-    <?php $tutorialUrlPath = './tutorial.php' ?>
-
+<body>   
     <header class="page-header-ui header-gradient position-relative">
         <div class="symbol">
             <img src="image/tezus-logo.svg">
@@ -42,32 +40,11 @@
     <main>
         <div class="container-fluid">
 
-            <div class="card shadow mb-4">
+            <div class="card shadow py-4">
                 <div class="card-body">
                     <div class="container">
-                        <div class="row g-1">
-                            <div class="col-12 col-md-4 card-container">
-                                <a href="<?= $tutorialUrlPath ?>?tutorial_id=1" target="_blank">
-                                    <div class="shadow card border-left-primary py-2">
-                                        <div class="card-body">
-                                            <div class="font-weight-bold text-primary-custom">
-                                                Instalação da loja Magento com Docker
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-12 col-md-4 card-container">
-                                <a href="<?= $tutorialUrlPath ?>?tutorial_id=2" target="_blank">
-                                    <div class="shadow card border-left-primary py-2">
-                                        <div class="card-body">
-                                            <div class="font-weight-bold text-primary-custom">
-                                                Vínculo com o Git
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="row g-1" id="tutorial_list">
+                                                       
                         </div>
                     </div>
                 </div>
@@ -75,6 +52,18 @@
 
         </div>
     </main>
+
+    <?php 
+        require 'config_paths.php'; 
+        require_once 'data_access.php';
+        $dataAccess = new DataAccess();        
+        $result = $dataAccess->getAllTutorials();        
+    ?>
+
+    <script type="module">
+        import {TutorialList} from "<?=URL_DEFAULT_PATH?>/js/tutorialScreenRender.js";
+        let tutorial_list = new TutorialList(document, [<?= implode(',', $result) ?>], '<?=URL_DEFAULT_PATH . URL_TUTORIAL_PATH?>');
+    </script>
 </body>
 
 </html>
