@@ -14,7 +14,7 @@ class DataAccess
     $this->conn->select_db("dncvhcwyhn");
   }
 
-  function setServerConfig($servername,$username,$password)
+  function setServerConfig($servername, $username, $password)
   {
     $this->servername = $servername;
     $this->username = $username;
@@ -22,9 +22,9 @@ class DataAccess
   }
 
   public function getContentById($id)
-  {        
-    $result = $this->conn->query("SELECT tutorial_content FROM tezus_tutorials WHERE tutorial_id = ".$id);
-    $result = $result->fetch_assoc()['tutorial_content'];    
-    return $result->fetch_assoc()['tutorial_content'] ?? "'{}";
+  {
+    $result = $this->conn->query("SELECT tutorial_content FROM tezus_tutorials WHERE tutorial_id = " . $id);
+    $result = $result->fetch_assoc()['tutorial_content'];
+    return $result ?? "'{}'";
   }
 }
