@@ -2,30 +2,17 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/sb-admin-2.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@200;400;700&display=swap"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link rel="icon" type="image/icon" href="favicon.ico">
+    <?php require 'header.php' ?>
+    <link rel="stylesheet" href="web/css/index.css">
     <title>Tutoriais</title>
 </head>
 
 <body>   
     <header class="page-header-ui header-gradient position-relative">
         <div class="symbol">
-            <img src="image/tezus-logo.svg">
+            <img src="web/image/tezus-logo.svg">
             <div class="tezeu position-absolute">
-                <div class="position-relative"><img src="image/dungeon-tezus.svg" class="position-absolute"></div>
+                <div class="position-relative"><img src="web/image/dungeon-tezus.svg" class="position-absolute"></div>
             </div>
         </div>
         <div class="container page-header-container">
@@ -53,12 +40,27 @@
         </div>
     </main>
 
+    <div class="admin-btn bg-light d-flex align-items-center" onclick="goAdmin()">
+        <div>
+            <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="ps-2 pe-3 back">
+            Admin
+        </div>
+    </div>
+
     <?php 
         require 'config_paths.php'; 
-        require_once 'data_access.php';
+        require_once 'db/data_access.php';
         $dataAccess = new DataAccess();        
         $result = $dataAccess->getAllTutorials();        
     ?>
+
+    <script>
+        function goAdmin(){
+            window.location.href = './admin';
+        }
+    </script>
 
     <script type="module">
         import {TutorialList} from "<?=URL_DEFAULT_PATH?>/js/tutorialScreenRender.js";

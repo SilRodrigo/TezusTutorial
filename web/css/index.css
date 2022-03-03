@@ -3,7 +3,7 @@ body {
 }
 
 body * {
-    font-family: var(--bs-font-sans-serif) !important;
+    font-family: var(--bs-font-sans-serif);
 }
 
 .header-gradient {
@@ -57,6 +57,45 @@ body * {
     animation: tezeus-color-effect 3s 1.5s forwards;
 }
 
+.admin-btn{
+    opacity: 0;
+    cursor: pointer;
+    position: fixed;
+    left: 5%;
+    top: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    transition: .25s;
+    animation: opacity-off .25s 3s forwards;
+}
+
+.admin-btn:hover{
+    width: 125px;
+    transform: translateX(-40px);
+}
+
+.admin-btn .back{
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: .1s;
+}
+
+.admin-btn:hover .back{
+    opacity: 1;
+    transform: translateX(0);
+    transition: .5s;
+}
+
+.admin-btn i{
+    min-width: 50px;
+    text-align: center;
+}
+
+.admin-btn:hover i::before{
+    content: "\f3c1";
+}
+
 @keyframes header-intro {
     0% {
         transform: translateX(-100%);
@@ -103,5 +142,14 @@ body * {
     }
     100% {
         filter: none;
+    }
+}
+
+@keyframes opacity-off {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
     }
 }

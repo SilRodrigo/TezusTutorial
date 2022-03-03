@@ -89,7 +89,6 @@ export class TutorialList {
     }
 
     renderTutorialCard(data) {
-        console.log(data)
         data.content = JSON.parse(data.content);
 
         let outer_div = this.context.createElement('div'),

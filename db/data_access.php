@@ -9,6 +9,7 @@ class DataAccess
 
   function __construct()
   {
+    require 'db/dbhelper.php';
     $this->setServerConfig("144.202.67.16", "dncvhcwyhn", "vBzpK9HSnw");
   }
 
@@ -30,8 +31,7 @@ class DataAccess
 
   public function getAllTutorials()
   {
-    $result = $this->conn->query("SELECT * FROM tezus_tutorials");
-    require 'helper.php';
+    $result = $this->conn->query("SELECT * FROM tezus_tutorials");    
     return prepareTutorialListData($result);
   }
 }

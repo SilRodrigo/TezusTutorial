@@ -1,6 +1,6 @@
 body {
     background-color: rgb(51 77 102) !important;
-    background-image: url('/TezusTutorial/image/tezus-logo.svg');
+    background-image: url('/TezusTutorial/web/image/tezus-logo.svg');
     background-repeat: no-repeat;    
     font-family: var(--bs-font-sans-serif) !important;
 }
