@@ -4,7 +4,7 @@
 <head>
     <?php require 'header.php' ?>
     <link rel="stylesheet" href="web/css/tutorial.css">
-    <title>Loja Magento no Docker</title>
+    <title>Tutorial</title>
 </head>
 
 <body class="block-overflow">    
