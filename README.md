@@ -2,4 +2,4 @@
 Página HTML para tutoriais da Tezus
 
 Acesse o link temporário:
-https://silrodrigo.github.io/TezusTutorial/
+http://phpstack-425685-2470886.cloudwaysapps.com/TezusTutorial/
