@@ -7,7 +7,7 @@
     <title>Tutorial</title>
 </head>
 
-<body class="block-overflow">    
+<body class="block-overflow">
     <header class="intro">
         <div class="container">
             <div class="shadow card py-2">
@@ -50,31 +50,32 @@
     </div>
 
     <script>
-        function goHome(){
+        function goHome() {
             window.location.href = './';
         }
     </script>
 
     <!-- Carrega os passos do tutorial -->
-    <?php 
-        require 'config_paths.php';
-        require_once 'db/data_access.php';
-        $dataAccess = new DataAccess();
-        $result = $dataAccess->getContentById($_GET['tutorial_id']);
+    <?php
+    require 'config_paths.php';
+    require_once 'db/data_access.php';
+    $dataAccess = new DataAccess(DB_NAME);
+    $result = $dataAccess->getContentById($_GET['tutorial_id']);
     ?>
-    <script type="module">       
-        import TutorialScreenRender from '<?=URL_DEFAULT_PATH?>/js/tutorialScreenRender.js';        
-        let tutorial_object = JSON.parse(<?= $result ?>);
+    <script type="module">
+        import TutorialScreenRender from '<?= URL_DEFAULT_PATH ?>/js/tutorialScreenRender.js';
+        let tutorial_object = <?= $result ?>;
+        if (typeof tutorial_object !== 'object') tutorial_object = JSON.parse(tutorial_object);
         if (!tutorial_object?.steps) goHome();
         new TutorialScreenRender(document, tutorial_object);
     </script>
 
     <!-- Carrega a API do YT  -->
-    <script src="<?=URL_DEFAULT_PATH?>/js/youtubeApi.js"></script>
+    <script src="<?= URL_DEFAULT_PATH ?>/js/youtubeApi.js"></script>
 
     <!-- Seta listeners e outras funções do JS -->
     <script type="module">
-        import Utils from "<?=URL_DEFAULT_PATH?>/js/utils.js";
+        import Utils from "<?= URL_DEFAULT_PATH ?>/js/utils.js";
 
         const intro_end = document.querySelector('.intro .container');
         intro_end.addEventListener('animationend', context => {
@@ -87,13 +88,17 @@
                     iconElem = document.createElement('i');
                 iconElem.classList.add('ps-2', 'fa-regular', 'fa-copy');
                 lastChild.append(iconElem);
-                elem.addEventListener('click', event => { Utils.copyToClipBoard(elem.attributes['url-copy'].value); })
+                elem.addEventListener('click', event => {
+                    Utils.copyToClipBoard(elem.attributes['url-copy'].value);
+                })
             });
 
             document.querySelectorAll('[yt-timestamp]').forEach(elem => {
                 let timeStamp = elem.attributes['yt-timestamp'].value;
                 elem.setAttribute('fancyTime', Utils.fancyTimeFormat(timeStamp))
-                elem.addEventListener('click', event => { player.seekTo(elem.attributes['yt-timestamp'].value); })
+                elem.addEventListener('click', event => {
+                    player.seekTo(elem.attributes['yt-timestamp'].value);
+                })
             });
 
             document.addEventListener('scroll', () => {
@@ -104,8 +109,8 @@
                 ytPlayer.style.top = `${window.pageYOffset - initial_scroll_validation}px`;
             })
 
-            window.onbeforeunload = function () {
-                window.scrollTo(0, 0);                    
+            window.onbeforeunload = function() {
+                window.scrollTo(0, 0);
             }
         }
 
@@ -120,8 +125,6 @@
                 }
             }
         });
-
-        
     </script>
 
 </body>

@@ -7,7 +7,7 @@
     <title>Tutoriais</title>
 </head>
 
-<body>   
+<body>
     <header class="page-header-ui header-gradient position-relative">
         <div class="symbol">
             <img src="web/image/tezus-logo.svg">
@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <div class="container">
                         <div class="row g-1" id="tutorial_list">
-                                                       
+
                         </div>
                     </div>
                 </div>
@@ -49,22 +49,22 @@
         </div>
     </div>
 
-    <?php 
-        require 'config_paths.php'; 
-        require_once 'db/data_access.php';
-        $dataAccess = new DataAccess();        
-        $result = $dataAccess->getAllTutorials();        
+    <?php
+    require 'config_paths.php';
+    require_once 'db/data_access.php';
+    $dataAccess = new DataAccess(DB_NAME);
+    $result = $dataAccess->getAllTutorials();
     ?>
 
     <script>
-        function goAdmin(){
+        function goAdmin() {
             window.location.href = './admin';
         }
     </script>
 
     <script type="module">
-        import {TutorialList} from "<?=URL_DEFAULT_PATH?>/js/tutorialScreenRender.js";
-        let tutorial_list = new TutorialList(document, [<?= implode(',', $result) ?>], '<?=URL_DEFAULT_PATH . URL_TUTORIAL_PATH?>');
+        import {TutorialList} from "<?= URL_DEFAULT_PATH ?>/js/tutorialScreenRender.js";
+        let tutorial_list = new TutorialList(document, [<?= implode(',', $result) ?>], '<?= URL_DEFAULT_PATH . URL_TUTORIAL_PATH ?>');
     </script>
 </body>
 

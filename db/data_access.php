@@ -6,32 +6,25 @@ class DataAccess
   protected $username;
   protected $password;
   protected $conn;
+  protected $dbConnection;
 
-  function __construct()
+  function __construct($dbHandler)
   {
-    require 'db/dbhelper.php';
-    $this->setServerConfig("144.202.67.16", "dncvhcwyhn", "vBzpK9HSnw");
-  }
-
-  function setServerConfig($servername, $username, $password)
-  {
-    $this->servername = $servername;
-    $this->username = $username;
-    $this->password = $password;
-    $this->conn = new mysqli($this->servername, $this->username, $this->password);
-    $this->conn->select_db("dncvhcwyhn");
+    require_once('dbhelper.php');
+    require_once('handler_interface.php');
+    require_once('mysql_handler.php');
+    require_once('mock_handler.php');
+    $db_handshake = $dbHandler . '_Handler';
+    $this->dbConnection = new $db_handshake;
   }
 
   public function getContentById($id)
   {
-    $result = $this->conn->query("SELECT tutorial_content FROM tezus_tutorials WHERE tutorial_id = " . $id);
-    $result = $result->fetch_assoc()['tutorial_content'];
-    return $result ?? "'{}'";
+    return $this->dbConnection->getContentById($id);
   }
 
   public function getAllTutorials()
   {
-    $result = $this->conn->query("SELECT * FROM tezus_tutorials");    
-    return prepareTutorialListData($result);
+    return $this->dbConnection->getAllTutorials();
   }
 }
