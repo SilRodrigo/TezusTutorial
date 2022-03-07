@@ -14,18 +14,21 @@ class Validation
     function redirectOnError()
     {
         header("Location: ./");
+        $this->dataAccess->finishDbConnection();
         die();
     }
 
     function redirectToLogin()
     {
         header("Location: ./login.php");
+        $this->dataAccess->finishDbConnection();
         die();
     }
 
     function loginSuccessful()
     {
         header("Location: ./create_tutorial.php");
+        $this->dataAccess->finishDbConnection();
         die();
     }
 

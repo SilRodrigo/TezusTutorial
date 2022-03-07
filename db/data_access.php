@@ -17,6 +17,10 @@ class DataAccess
     $this->dbConnection = new $db_handshake;
   }
 
+  public function finishDbConnection(){
+    $this->dbConnection->finishDbConnection();
+  }
+
   public function getContentById($id)
   {
     return $this->dbConnection->getContentById($id);
