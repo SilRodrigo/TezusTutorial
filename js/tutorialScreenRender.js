@@ -88,8 +88,8 @@ export class TutorialList {
         })
     }
 
-    renderTutorialCard(data) {        
-        if (typeof data !== 'object') data.content = JSON.parse(data.content);
+    renderTutorialCard(data) {   
+        if (typeof data.content !== 'object') data.content = JSON.parse(data.content);
 
         let outer_div = this.context.createElement('div'),
             a = this.context.createElement('a'),

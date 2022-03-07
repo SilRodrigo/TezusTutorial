@@ -2,24 +2,18 @@
 <html lang="pt-BR">
 
 <head>
-    <?php require 'header.php' ?>
-    <link rel="stylesheet" href="web/css/admin.css">
-    <title>Painel</title>
+    <?php require '../header.php' ?>
+    <link rel="stylesheet" href="<?= URL_DEFAULT_PATH ?>/web/css/login.css">
+    <title>Criar novo tutorial</title>
 </head>
+
+<?php require_once 'validation_header.php';?>
 
 <body>
 
-    <pre>
-        <?php 
-        print_r($_POST);
-        setcookie('teste','1234');
-        ?>           
-    </pre>
-
-    <form action="./admin.php" method="POST">
-        <input type="text" name="teste">
-        <button type="submit">Ok</button>
-    </form>
+    <div>
+        teste
+    </div>
 
 </body>
 

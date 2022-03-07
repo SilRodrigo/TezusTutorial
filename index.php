@@ -51,7 +51,7 @@
 
     <?php
     require 'config_paths.php';
-    require_once 'db/data_access.php';
+    require_once 'db/data_access.php';    
     $dataAccess = new DataAccess(DB_NAME);
     $result = $dataAccess->getAllTutorials();
     ?>
@@ -63,8 +63,10 @@
     </script>
 
     <script type="module">
-        import {TutorialList} from "<?= URL_DEFAULT_PATH ?>/js/tutorialScreenRender.js";
-        let tutorial_list = new TutorialList(document, [<?= implode(',', $result) ?>], '<?= URL_DEFAULT_PATH . URL_TUTORIAL_PATH ?>');
+        import {
+            TutorialList
+        } from "<?= URL_DEFAULT_PATH ?>/js/tutorialScreenRender.js";
+        new TutorialList(document, [<?= implode(',', $result) ?>], '<?= URL_DEFAULT_PATH . URL_TUTORIAL_PATH ?>');
     </script>
 </body>
 

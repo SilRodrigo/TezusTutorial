@@ -22,4 +22,18 @@ class Mock_Handler extends Db_Helper implements Db_Handler
     {
         return $this->prepareTutorialListData($this->mockData);
     }
+
+    function findUserById($id){
+        return $this->findUserById($id);
+    }
+
+    function findUser($name, $password)
+    {
+        
+    }
+
+    function saveSessionId($id, $session_id)
+    {
+        
+    }
 }

@@ -1,0 +1,60 @@
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid gray;
+    opacity: 0;
+    background-size: contain;
+    background-image: url('../image/capy.png');
+    animation: wild-capybara-appears 1s forwards;
+}
+
+.speech-bubble {
+    position: relative;
+    border: 2px solid gray;
+    border-radius: .4em;
+    opacity: 0;
+    animation: 1s that-capybara-talks .5s forwards;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 40%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: gray;
+    border-top: 0;
+    border-right: 0;
+    margin-left: -10px;
+    margin-top: -20px;
+}
+
+@keyframes wild-capybara-appears {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes that-capybara-talks {
+    0% {
+        opacity: 0;
+        transform: skewX(0deg) scaleX(0);
+    }
+
+    85% {
+        opacity: 1;
+        transform: skewX(0deg) scaleX(1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: skewX(-10deg) scaleX(1);
+    }
+}

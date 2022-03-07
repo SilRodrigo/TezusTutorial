@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<?php
+require_once 'validation.php';
+$validation = new Validation();
 
-<head>
-    <?php require '../header.php' ?>
-    <link rel="stylesheet" href="<?= URL_DEFAULT_PATH ?>/web/css/admin.css">
-    <title>Painel</title>
-</head>
+if (count($_POST) === 0) {
+    $validation->validationCaller();
+};
 
-<body class="bg-secondary d-flex align-items-center" style="height: 100vh;">
+if ($_POST['username'] && $_POST['password']) {
+    $validation->validateUser($_POST['username'], $_POST['password']);
+}
 
-    <?php
-    require 'login.php';
-    setcookie('teste', 'teste',0, URL_DEFAULT_PATH);
-    ?>
-
-    <div>
-        oi
-       <?php print_r($_COOKIE['teste']); ?>
-    </div>
-
-
-</body>
-
-</html>
+$validation->redirectToLogin();

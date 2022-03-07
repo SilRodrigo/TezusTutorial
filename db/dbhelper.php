@@ -1,6 +1,6 @@
 <?php
 
-class Db_Helper
+abstract class Db_Helper
 {
     function prepareTutorialListData($data)
     {
