@@ -1,0 +1,24 @@
+body {
+    height: 100vh;
+    background-color: #1b3e60;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.creation-bg-color {
+    background-color: #ededed;
+}
+
+.step-card-list {
+    height: 100vh;
+}
+
+.border-right-secondary {
+    border-right: .25rem solid #858796 !important;
+}
+
+.code-headers-unset {
+    display: none !important;
+}
