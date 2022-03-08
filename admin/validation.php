@@ -18,9 +18,11 @@ class Validation
         die();
     }
 
-    function redirectToLogin()
+    function redirectToLogin($server_response = null)
     {
-        header("Location: ./login.php");
+        $response = "Location: ./login.php";
+        if ($server_response) $response = "Location: ./login.php?" . $server_response;
+        header($response);
         $this->dataAccess->finishDbConnection();
         die();
     }
@@ -49,7 +51,7 @@ class Validation
     function validateUser($username, $password)
     {
         $response = $this->dataAccess->findUserByCredentials($username, $password);
-        if (!$response) return $this->redirectOnError();
+        if (!$response) return $this->redirectToLogin("server_response=Digitou negocio errado ai bixo...");
         if (!$sessionId = $this->dataAccess->generateSessionId($response['id'])) return $this->redirectOnError();
         setcookie("session_id", $sessionId);
         $this->loginSuccessful();

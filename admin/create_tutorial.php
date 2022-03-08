@@ -43,7 +43,7 @@
                             </div>
                             <hr>
                             <div class="text-end">
-                                <button class="btn btn-primary">Adicionar</button>
+                                <button class="btn btn-primary">Adicionar às etapas</button>
                             </div>
                         </div>
                     </div>
@@ -106,9 +106,24 @@
         </div>
     </main>
 
+    <div class="go-home-btn bg-light d-flex align-items-center" onclick="goHome()">
+        <div>
+            <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="ps-2 pe-3 back">
+            Voltar
+        </div>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = '<?=URL_DEFAULT_PATH?>';
+        }
+    </script>
+
 
     <script type="module">
-        import Utils from '/TezusTutorial/js/utils.js'
+        import Utils from '<?= URL_DEFAULT_PATH ?>/js/utils.js'
         document.querySelectorAll('.code-headers-edit').forEach(elem => {
             elem.addEventListener('keydown', (event) => {
                 if ((event.key === 'Escape' || event.key === 'Enter') && event.target.value !== '') save_header(event);

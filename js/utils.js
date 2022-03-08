@@ -12,11 +12,9 @@ export default class Utils {
         setTimeout(() => alertBox.classList.remove('show'), duration || 2000);
     }
 
-    static findSpecificOnPath(path, value) {
+    static recursiveToId(path, value) {
         if (!path && !path[0]) return;
-        let response;
-        path.find(item => response = item.querySelector(value));
-        return response;
+        return path.find(item => item.id);
     }
 
     static fancyTimeFormat(duration) {

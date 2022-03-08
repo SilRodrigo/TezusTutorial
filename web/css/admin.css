@@ -22,3 +22,37 @@ body {
 .code-headers-unset {
     display: none !important;
 }
+
+.go-home-btn{    
+    cursor: pointer;
+    position: fixed;
+    left: 5%;
+    top: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    transition: .25s;
+    animation: opacity-off .25s 3s forwards;
+}
+
+.go-home-btn:hover{
+    width: 125px;
+    transform: translateX(-40px);
+}
+
+.go-home-btn .back{
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: .1s;
+}
+
+.go-home-btn:hover .back{
+    opacity: 1;
+    transform: translateX(0);
+    transition: .5s;
+}
+
+.go-home-btn i{
+    min-width: 50px;
+    text-align: center;
+}
