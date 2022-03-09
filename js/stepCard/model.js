@@ -7,7 +7,7 @@ export default class StepCard {
 
     constructor(step) {
         this.#text = step?.text || '';
-        this.#attributes = step?.attributes || [];
+        this.#attributes = step?.attributes || {};
         this.#link = step?.link || '';
         this.#removeCardEffect = step?.removeCardEffect || false;
         this.#createStepElement();
