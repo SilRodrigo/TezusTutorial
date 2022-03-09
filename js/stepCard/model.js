@@ -1,4 +1,4 @@
-class StepCard {
+export default class StepCard {
     #text;
     #attributes;
     #link;

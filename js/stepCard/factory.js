@@ -1,3 +1,5 @@
+import StepCard from "./model";
+
 export default class StepCardFactory {
 
     renderStepsCard(target, steps) {
