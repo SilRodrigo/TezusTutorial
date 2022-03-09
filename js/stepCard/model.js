@@ -1,32 +1,77 @@
 class StepCard {
-    constructor(step) {        
+    #text;
+    #attributes;
+    #link;
+    #removeCardEffect;
+    #stepElem;
 
-        if (!step.removeCardEffect) {
-            let div_card = document.createElement('div'),
-                div_card_body = document.createElement('div');
+    constructor(step) {
+        this.#text = step?.text || '';
+        this.#attributes = step?.attributes || [];
+        this.#link = step?.link || '';
+        this.#removeCardEffect = step?.removeCardEffect || false;
+        this.#createStepElement();
+    }
 
-            div_card.classList.add('card', 'my-1');
-            div_card.tabIndex = "-1";
-            div_card_body.classList.add('card-body');
-            for (const key in step.attributes) { div_card_body.setAttribute(key, step.attributes[key]); }
-            this.#prepareText(step.text, div_card_body, step.link);
-            div_card.append(div_card_body);
+    /**
+     * @param {string} text
+     */
+    set text(text) {
+        this.#text = text;
+        this.#updateStepElement();
+    }
 
-            this.finalElem = div_card;
-        } else {
-            let outer_div = document.createElement('div'),
-                inner_h3 = document.createElement('h3');
-            this.#prepareText(step.text, inner_h3, step.link);
-            outer_div.classList.add('pt-3', 'px-2');
-            outer_div.append(inner_h3);
+    /**
+     * @param {array} text
+     */
+    set attributes(attributes) {
+        this.#attributes = attributes;
+        this.#updateStepElement();
+    }
 
-            this.finalElem = outer_div;
-        }        
+    /**
+     * @param {string} text
+     */
+    set link(link) {
+        this.#link = link;
+        this.#updateStepElement();
+    }
+
+    /**
+     * @param {boolean} removeCardEffect
+     */
+    set removeCardEffect(removeCardEffect) {
+        this.#removeCardEffect = removeCardEffect;
+        this.#updateStepElement();
+    }
+
+    /**
+     * @param {HTMLElement} stepElem
+     */
+    set stepElem(stepElem) {
+        this.#stepElem = stepElem;
+    }
+
+    get text() {
+        return this.#text;
+    }
+
+    get attributes() {
+        return this.#attributes;
+    }
+
+    get link() {
+        return this.#link;
+    }
+
+    get stepElem() {
+        return this.#stepElem;
     }
 
     #prepareText(text, parentElement, link) {
         /* /<[a-z]*?>.*?<\/[a-z]*?>/ Seleciona tags */
         /* /.*?(?=<[a-z]*?>|$)/ Seleciona tudo antes de uma tag */;
+        if (!text) return;
         let result;
 
         while (result = text.match(/(<[a-z]*?>.*?<\/[a-z]*?>)|(.*?(?=<[a-z]*?>|$))/)) {
@@ -51,5 +96,42 @@ class StepCard {
         }
     }
 
+    #createStepElement() {
+        if (!this.removeCardEffect) {
+            let div_card = document.createElement('div'),
+                div_card_body = document.createElement('div');
 
+            div_card.classList.add('card', 'my-1');
+            div_card.tabIndex = "-1";
+            div_card_body.classList.add('card-body');
+            for (const key in this.attributes) { div_card_body.setAttribute(key, this.attributes[key]); }
+            this.#prepareText(this.text, div_card_body, this.link);
+            div_card.append(div_card_body);
+
+            this.#stepElem = div_card;
+        } else {
+            let outer_div = document.createElement('div'),
+                inner_h3 = document.createElement('h3');
+            this.#prepareText(this.text, inner_h3, this.link);
+            outer_div.classList.add('pt-3', 'px-2');
+            outer_div.append(inner_h3);
+
+            this.#stepElem = outer_div;
+        }
+    }
+
+    #updateStepElement() {
+        if (!this.removeCardEffect) {
+            let div_card_body = this.stepElem.querySelector('.card-body');
+            while (div_card_body.attributes.length > 0) div_card_body.removeAttribute(div_card_body.attributes[0].name);
+            div_card_body.classList.add('card-body');
+            div_card_body.innerHTML = "";
+            for (const key in this.attributes) { div_card_body.setAttribute(key, this.attributes[key]); }
+            this.#prepareText(this.text, div_card_body, this.link);
+            return;
+        }
+        let inner_h3 = this.stepElem.querySelector('h3');
+        inner_h3.innerHTML = "";
+        this.#prepareText(this.text, inner_h3, this.link);
+    }
 }
