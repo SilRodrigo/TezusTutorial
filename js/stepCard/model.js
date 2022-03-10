@@ -1,3 +1,5 @@
+import Utils from '../utils.js'
+
 export default class StepCard {
     #text;
     #attributes;
@@ -7,7 +9,7 @@ export default class StepCard {
 
     constructor(step) {
         this.#text = step?.text || '';
-        this.#attributes = step?.attributes || [];
+        this.#attributes = step?.attributes || {};
         this.#link = step?.link || '';
         this.#removeCardEffect = step?.removeCardEffect || false;
         this.#createStepElement();
@@ -22,7 +24,7 @@ export default class StepCard {
     }
 
     /**
-     * @param {array} text
+     * @param {object} attributes
      */
     set attributes(attributes) {
         this.#attributes = attributes;
@@ -30,7 +32,7 @@ export default class StepCard {
     }
 
     /**
-     * @param {string} text
+     * @param {string} link
      */
     set link(link) {
         this.#link = link;
@@ -62,6 +64,10 @@ export default class StepCard {
 
     get link() {
         return this.#link;
+    }
+
+    get removeCardEffect() {
+        return this.#removeCardEffect;
     }
 
     get stepElem() {
@@ -104,7 +110,10 @@ export default class StepCard {
             div_card.classList.add('card', 'my-1');
             div_card.tabIndex = "-1";
             div_card_body.classList.add('card-body');
-            for (const key in this.attributes) { div_card_body.setAttribute(key, this.attributes[key]); }
+            for (const key in this.attributes) {
+                div_card_body.setAttribute(key, this.attributes[key]);
+                if (key === 'yt-timestamp') div_card_body.setAttribute('fancyTime', Utils.fancyTimeFormat(this.attributes[key]));
+            }
             this.#prepareText(this.text, div_card_body, this.link);
             div_card.append(div_card_body);
 

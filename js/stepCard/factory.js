@@ -1,12 +1,18 @@
-import StepCard from "./model";
+import StepCard from "./model.js";
 
 export default class StepCardFactory {
 
     renderStepsCard(target, steps) {
-        steps.forEach(step => { target.append(new StepCard(step).stepElem) });
+        let stepCards = [];
+        steps.forEach(step => {
+            let stepCard = new StepCard(step);
+            stepCards.push(stepCard);
+            target.append(stepCard.stepElem);
+        });
+        return stepCards;
     }
 
-    generateStepCard(){
+    generateStepCard() {
         return new StepCard();
     }
 
