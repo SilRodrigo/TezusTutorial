@@ -7,11 +7,12 @@ export default class StepCard {
     #removeCardEffect;
     #stepElem;
 
-    constructor(step) {
-        this.#text = step?.text || '';
-        this.#attributes = step?.attributes || {};
-        this.#link = step?.link || '';
-        this.#removeCardEffect = step?.removeCardEffect || false;
+    constructor(...step) {
+        if (typeof step[0] === 'object') step = step[0];
+        this.#text = step?.text || step[0] || '';
+        this.#attributes = step?.attributes || step[1] || {};
+        this.#link = step?.link || step[2] || '';
+        this.#removeCardEffect = step?.removeCardEffect || step[3] || false;
         this.#createStepElement();
     }
 
@@ -110,10 +111,7 @@ export default class StepCard {
             div_card.classList.add('card', 'my-1');
             div_card.tabIndex = "-1";
             div_card_body.classList.add('card-body');
-            for (const key in this.attributes) {
-                div_card_body.setAttribute(key, this.attributes[key]);
-                if (key === 'yt-timestamp') div_card_body.setAttribute('fancyTime', Utils.fancyTimeFormat(this.attributes[key]));
-            }
+            for (const key in this.attributes) div_card_body.setAttribute(key, this.attributes[key]);
             this.#prepareText(this.text, div_card_body, this.link);
             div_card.append(div_card_body);
 
@@ -142,5 +140,11 @@ export default class StepCard {
         let inner_h3 = this.stepElem.querySelector('h3');
         inner_h3.innerHTML = "";
         this.#prepareText(this.text, inner_h3, this.link);
+    }
+
+    append(element) {
+        let text = element.innerText;
+        let tagName = element.tagName.toLowerCase();
+        this.text += `<${tagName}>${text}</${tagName}>`;
     }
 }

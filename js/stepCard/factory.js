@@ -12,8 +12,8 @@ export default class StepCardFactory {
         return stepCards;
     }
 
-    generateStepCard() {
-        return new StepCard();
+    generateStepCard(step) {
+        return new StepCard(step);
     }
 
 }

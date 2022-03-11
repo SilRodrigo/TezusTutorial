@@ -6,10 +6,10 @@ export default class Utils {
         Utils.showAlert('Copiado!');
     }
 
-    static showAlert(text) {
+    static showAlert(text, duration, colorClass) {
         alertBox.querySelector('.alert').innerHTML = text;
-        alertBox.classList.add('show');
-        setTimeout(() => alertBox.classList.remove('show'), 2000);
+        alertBox.classList.add('show', colorClass || 'alert-success');
+        setTimeout(() => alertBox.classList.remove('show'), duration || 2000);
     }
 
     static recursiveToId(path, value) {
