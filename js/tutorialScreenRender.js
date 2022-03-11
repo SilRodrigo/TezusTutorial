@@ -1,3 +1,7 @@
+import Utils from './utils.js'
+import StepCardFactory from "./stepCard/factory.js";
+import TutorialFactory from "./tutorial/factory.js";
+
 export default class TutorialScreenRender {
     constructor(context, object) {
         this.context = context;
@@ -69,6 +73,30 @@ export default class TutorialScreenRender {
 
         }
     }
+
+}
+
+export class CreateStepCardRender extends StepCardFactory {
+    constructor() {
+        super();
+    }
+
+    editNewStepCard() {
+        return this.generateStepCard();
+    }
+
+    processNewStep(edit_card, values) {
+        if (values.removeCardEffect) return;
+        if (values.copy_value) edit_card.attributes = { ...edit_card.attributes, 'url-copy': values.copy_value };
+        if (values.a_link_value) edit_card.link = values.a_link_value;
+        edit_card.text += `<${values.step_elem_type}>${values.elem_value}</${values.step_elem_type}>`;
+    }
+}
+
+export class TutorialRender extends TutorialFactory {
+    constructor() {
+        super();
+    }    
 
 }
 

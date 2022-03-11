@@ -223,7 +223,7 @@
 
         document.querySelector('.finalizar').addEventListener('click', () => {
             if (!tutorial.validate()) Utils.showAlert('Opa, tem coisa errada!', 2000, 'alert-dark');
-            fetch('./')
+            fetch('./', {method: 'POST'}).then((data) => console.log(data));
         })
     </script>
 
