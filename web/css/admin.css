@@ -56,3 +56,58 @@ body {
     min-width: 50px;
     text-align: center;
 }
+
+.a-link-container{
+    display: none;
+}
+
+.a-link-container.show{
+    display: block;
+}
+
+.finalizar{
+    position: absolute;
+    bottom: 10px;
+}
+
+#tutorial_form{
+    height: 100%;
+    overflow-y: auto;    
+}
+
+.alert-container{
+    z-index: -1;
+    opacity: 0;    
+    position: fixed !important;
+    bottom: -10%;
+    transition: .25s;
+    width: 50%;
+    left: 30%;
+    border-radius: 25px;
+}
+
+.alert-container.show{
+    z-index: 99;
+    opacity: 1;
+    bottom: 10%;
+}
+
+.alert{
+    transform: translateX(-160px);
+    height: 160px;
+    padding-left: 180px;
+    font-size: 24px;
+}
+
+.avatar {
+    z-index: 100;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid gray;
+    opacity: 1;
+    background-size: contain;
+    background-image: url('../image/capy.png');
+    margin-top: 5px;
+    margin-left: 20px;
+}
