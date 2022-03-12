@@ -47,4 +47,8 @@ class DataAccess
     if (!$this->dbConnection->saveSessionId($id, $sessionId)) return;
     return $sessionId;
   }
+
+  public function insertTutorial($tutorial){
+    return $this->dbConnection->saveTutorialEntity($tutorial);
+  }
 }

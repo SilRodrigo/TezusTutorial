@@ -34,4 +34,10 @@ export default class Utils {
         ret += "" + secs;
         return ret;
     }
+
+    static convertTimeString(time){
+        if (!time) return;
+        let a = time.split(':');
+        return (+a[0]) * 60 + (+a[1]);;
+    }
 }

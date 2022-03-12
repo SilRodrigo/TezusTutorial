@@ -19,7 +19,7 @@ if ($validation->validateSession()) $validation->loginSuccessful();
                         <div class="avatar"></div>
                     </div>
                     <div class="speech-bubble pt-2 mb-4 text-center">
-                        <h3><?=$_GET['server_response'] ?? '"Calma lá jovem, vamo loga primeiro?"' ?></h3>
+                        <h3><?=$_GET['server_response'] ?? 'Calma lá jovem, vamo loga primeiro?' ?></h3>
                     </div>
                     <form class="user" action="./" method="POST">
                         <div class="form-group">

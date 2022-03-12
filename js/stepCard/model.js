@@ -103,6 +103,23 @@ export default class StepCard {
         }
     }
 
+    #splitText() {
+        /* /<[a-z]*?>.*?<\/[a-z]*?>/ Seleciona tags */
+        /* /.*?(?=<[a-z]*?>|$)/ Seleciona tudo antes de uma tag */;
+        if (!this.text) return;
+        let result,
+            text = this.text,
+            splitedText = [];
+
+        while (result = text.match(/(<[a-z]*?>.*?<\/[a-z]*?>)|(.*?(?=<[a-z]*?>|$))/)) {
+            result = result[0];
+            if (!result) break;
+            text = text.replace(result, '');
+            splitedText.push(result);
+        }
+        return splitedText;
+    }
+
     #createStepElement() {
         if (!this.removeCardEffect) {
             let div_card = document.createElement('div'),
@@ -125,7 +142,7 @@ export default class StepCard {
 
             this.#stepElem = outer_div;
         }
-    }
+    }    
 
     #updateStepElement() {
         if (!this.removeCardEffect) {
@@ -146,5 +163,36 @@ export default class StepCard {
         let text = element.innerText;
         let tagName = element.tagName.toLowerCase();
         this.text += `<${tagName}>${text}</${tagName}>`;
+    }
+
+    removeLastText() {
+        let text = this.#splitText();
+        if (!text) return;
+        text.pop();
+        this.text = text.join('');
+    }
+
+    fillAttributes() {
+        let div_card_body = this.stepElem.querySelector('.card-body');
+        if (this.attributes['url-copy']) {
+            let lastChild = div_card_body.lastChild,
+                iconElem = document.createElement('i');
+            iconElem.classList.add('ps-2', 'fa-regular', 'fa-copy');
+            lastChild.append(iconElem);
+        }
+
+        if (this.attributes['yt-timestamp']) {
+            let timeStamp = div_card_body.attributes['yt-timestamp'].value;
+            div_card_body.setAttribute('fancyTime', Utils.fancyTimeFormat(timeStamp))
+        }
+    }
+
+    toJSON() {
+        return {
+            text: this.text,
+            attributes: this.attributes,
+            link: this.link,
+            removeCardEffect: this.removeCardEffect
+        }
     }
 }

@@ -62,12 +62,15 @@
     $dataAccess = new DataAccess(DB_NAME);
     $result = $dataAccess->getContentById($_GET['tutorial_id']);
     ?>
+
+    <script>var tutorial;</script>
+
     <script type="module">
         import TutorialScreenRender from '<?= URL_DEFAULT_PATH ?>/js/tutorialScreenRender.js';
         let tutorial_object = <?= $result ?>;
         if (typeof tutorial_object !== 'object') tutorial_object = JSON.parse(tutorial_object);
         if (!tutorial_object?.steps) goHome();
-        new TutorialScreenRender(document, tutorial_object);
+        tutorial = new TutorialScreenRender(document, tutorial_object);
     </script>
 
     <!-- Carrega a API do YT  -->
@@ -82,32 +85,7 @@
             if (context.animationName === 'intro-end') document.body.classList.remove('block-overflow');
         });
 
-        function listeners() {
-            document.querySelectorAll('[url-copy]').forEach(elem => {
-                let lastChild = elem.lastChild,
-                    iconElem = document.createElement('i');
-                iconElem.classList.add('ps-2', 'fa-regular', 'fa-copy');
-                lastChild.append(iconElem);
-                elem.addEventListener('click', event => {
-                    Utils.copyToClipBoard(elem.attributes['url-copy'].value);
-                })
-            });
-
-            document.querySelectorAll('[yt-timestamp]').forEach(elem => {
-                let timeStamp = elem.attributes['yt-timestamp'].value;
-                elem.setAttribute('fancyTime', Utils.fancyTimeFormat(timeStamp))
-                elem.addEventListener('click', event => {
-                    player.seekTo(elem.attributes['yt-timestamp'].value);
-                })
-            });
-
-            document.addEventListener('scroll', () => {
-                if (window.innerWidth < 768) return;
-                const initial_scroll_validation = document.querySelector('.tutorial-steps-card').getClientRects()[0].y - document.body.getClientRects()[0].y,
-                    ytPlayer = document.querySelector('#player');
-                if (window.pageYOffset < initial_scroll_validation) return ytPlayer.style.top = '';
-                ytPlayer.style.top = `${window.pageYOffset - initial_scroll_validation}px`;
-            })
+        function listeners() {            
 
             window.onbeforeunload = function() {
                 window.scrollTo(0, 0);

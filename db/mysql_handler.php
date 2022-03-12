@@ -54,6 +54,14 @@ class MySql_Handler extends Db_Helper implements Db_Handler
     {
         $this->conn->query("UPDATE tezus_users SET session_id = " . $session_id . " WHERE id =" . $id);
         $this->conn->commit();
+        $this->finishDbConnection();
         return true;
+    }
+
+    function saveTutorialEntity($data){
+        $this->conn->query("INSERT INTO tezus_tutorials VALUES (0, ".json_encode($data).")");
+        $this->conn->commit();
+        $this->finishDbConnection();
+        return $data;
     }
 }

@@ -50,6 +50,7 @@ class Validation
 
     function validateUser($username, $password)
     {
+        return print_r('aq');
         $response = $this->dataAccess->findUserByCredentials($username, $password);
         if (!$response) return $this->redirectToLogin("server_response=Digitou negocio errado ai bixo...");
         if (!$sessionId = $this->dataAccess->generateSessionId($response['id'])) return $this->redirectOnError();
@@ -62,5 +63,9 @@ class Validation
         $response = $this->validateSession($this->dataAccess);
         if ($response) $this->loginSuccessful();
         $this->redirectToLogin();
+    }
+
+    function insertTutorial($data){
+        return $this->dataAccess->insertTutorial($data);
     }
 }
