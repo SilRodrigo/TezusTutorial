@@ -11,6 +11,7 @@ export default class Tutorial {
         this.#yt_link = data?.yt_link || data[2] || '';
         this.#steps = data?.steps || data[3] || [];
         this.referenceElem = data?.referenceElem || data[4] || null;
+        this.isStepsDraggable = data?.isStepsDraggable || data[5] || false;
     }
 
     get tutorial_title() {
@@ -22,7 +23,13 @@ export default class Tutorial {
     }
 
     get yt_link() {
-        return this.#yt_link;
+        try {
+            let yt_url = new URL(this.#yt_link),
+                yt_id = yt_url.search.replace('?v=', '');
+            return yt_id;
+        } catch (error) {
+            return this.#yt_link;
+        }
     }
 
     get steps() {
@@ -43,6 +50,17 @@ export default class Tutorial {
                     let reference = this.referenceElem.querySelector('[tutorial="steps"]');
                     reference.removeChild(reference.lastChild);
                 }
+            },
+            reorder: () => {
+                let newOrder = this.referenceElem.querySelectorAll('[tutorial="steps"] .card'),
+                    currentOrder = this.steps.get(),
+                    finalOrder = [];
+
+                newOrder.forEach(newStep => {
+                    finalOrder.push(currentOrder.find(oldStep => oldStep.stepElem.isSameNode(newStep)));
+                });
+
+                this.#steps = finalOrder;
             }
         };
     }
@@ -69,6 +87,10 @@ export default class Tutorial {
             let reference = this.referenceElem.querySelector('[tutorial="yt_link"]');
             reference.innerText = yt_link;
         }
+    }
+
+    set steps(step) {
+        return;
     }
 
     validate() {

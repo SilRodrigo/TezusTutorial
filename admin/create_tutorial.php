@@ -16,12 +16,12 @@
                 <div class="user d-flex align-items-center justify-content-center">
                     <div class="card shadow col-6 p-0">
                         <div class="h4 card-header ">
-                            Edição da próxima etapa
+                            Card da próxima etapa
                         </div>
                         <div class="card-body">
                             <form id="add_step_form" class="px-3">
                                 <div class="input-group pt-2">
-                                    <input type="text" name="elem_value" class="form-control form-control-user" placeholder="Digite a próxima etapa..." style="height: 50px;">
+                                    <input autocomplete="off" type="text" name="elem_value" class="form-control form-control-user" placeholder="Digite a próxima etapa..." style="height: 50px;">
                                     <div class="input-group-append">
                                         <select id="step_elem_type" name="step_elem_type" class="btn btn-outline-secondary" type="button">
                                             <option value="div">div</option>
@@ -100,6 +100,7 @@
                                     </div>
                                 </div>
                                 <div tutorial="yt_link" name="yt_link" class="pointer h3 text-dark text-center code-headers-unset code-header-content"><i class="ps-2 text-lg fa-solid fa-pen-to-square"></i></div>
+                                <div class="text-center video-container"> </div>
                             </div>
                         </div>
                         <div class="pt-3 h2 text-center">Etapas</div>
@@ -156,25 +157,54 @@
         tutorialRender = new TutorialRender();
         createStepCardRender = new CreateStepCardRender();
         tutorial = tutorialRender.generateTutorial();
+        tutorial.steps.isDraggable = true;
         tutorial.referenceElem = tutorial_form;
         edit_card = createStepCardRender.editNewStepCard();
         edit_card_elem.append(edit_card.stepElem);
     </script>
 
+    <!-- Carrega a API do YT  -->
+    <script src="<?= URL_DEFAULT_PATH ?>/js/youtubeApi.js"></script>
+
     <script type="module">
         import Utils from '../js/utils.js'
 
         document.querySelectorAll('.code-headers-edit').forEach(elem => {
-            elem.addEventListener('keydown', (event) => {
-                if ((event.key === 'Escape' || event.key === 'Enter') && event.target.value !== '') save_header(event);
+            elem.addEventListener('keydown', event => {
+                if ((event.key === 'Escape' || event.key === 'Enter') && event.target.value !== '') elem.blur();
             });
-            elem.addEventListener('focusout', (event) => {
-                if (event.target.value !== '') save_header(event);
+            elem.addEventListener('focusout', event => {
+                if (event.target.value !== '') saveHeader(event);
             });
         });
 
-        function save_header(context) {
-            let header_top = Utils.recursiveToId(context.path, '[id]'),
+        tutorial_yt_link.querySelector('input').addEventListener('change', event => {
+            renderYtVideo(event);
+        })
+
+        function renderYtVideo(event) {
+            let player = document.createElement('div'),
+                video_container = tutorial_yt_link.querySelector('.video-container'),
+                input_value,
+                yt_url,
+                yt_id;
+            player.id = 'player';
+            video_container.innerHTML = "";
+            video_container.append(player);
+            try {
+                input_value = event.target.value;
+                yt_url = new URL(input_value);
+                yt_id = yt_url.search.replace('?v=', '');
+                if (!yt_id && yt_url.search.search('?v=') < 0) throw "";
+                video_container.setAttribute('yt-link', yt_id);
+            } catch (error) {
+                Utils.showAlert('Tem algo errado no link do youtube', 3000, 'alert-dark')
+            }
+            onYouTubeIframeAPIReady(yt_id);
+        }
+
+        function saveHeader(context) {
+            let header_top = Utils.recursiveToId(context.composedPath(), '[id]'),
                 header = header_top.querySelector('.code-headers-unset'),
                 header_edit_icon = header.querySelector('i');
             let header_name = header.getAttribute('tutorial');
@@ -190,7 +220,7 @@
         });
 
         function edit_header(context) {
-            let header_top = Utils.recursiveToId(context.path, '[id]'),
+            let header_top = Utils.recursiveToId(context.composedPath(), '[id]'),
                 header = header_top.querySelector('.card');
             header.classList.remove('code-headers-unset');
             header.querySelector('input').focus();
@@ -204,6 +234,8 @@
         })
 
         add_step_form.addEventListener('submit', event => {
+            event.preventDefault();
+            if (!event.target.querySelector('input').value && edit_card.text) return addToTutorialList();
             addTextToStep(event);
         });
 
@@ -270,6 +302,71 @@
             });
             event.target.disabled = false;
         }
+    </script>
+
+
+    <script>
+        function dragStepCardList() {
+            let isDragging = false,
+                card_elem,
+                card_width,
+                card_top,
+                hovered_card,
+                steps = document.querySelector('[tutorial="steps"]'),
+                empty_search;
+
+            steps.addEventListener('mousedown', event => {
+                card_elem = null;
+                hovered_card = null;
+                let path = event.composedPath();
+                path.find(elem => {
+                    if (elem.id) return true;
+                    if (elem.classList.contains('card')) return card_elem = elem;
+                })
+                if (!card_elem) return;
+                card_width = card_elem.clientWidth;
+                steps.classList.add('dragging');
+                card_elem.classList.add('dragged');
+                card_elem.style.width = card_width + "px";
+                card_top = card_elem.getBoundingClientRect().top;
+                card_elem.style.top = (event.clientY - card_top) + "px";
+                isDragging = true;
+            });
+
+            document.addEventListener('mousemove', event => {
+                if (!isDragging) return;
+                document.body.classList.add('no-select');
+                card_elem.style.top = (event.clientY - card_top) + "px";
+            })
+
+            steps.addEventListener('mouseover', event => {
+                if (!isDragging) return;
+                let path = event.composedPath();                
+                path.find(elem => {
+                    empty_search = null;
+                    if (elem.querySelector('[tutorial="steps"]')) return empty_search = true;
+                    if (elem.classList.contains('card')) return hovered_card = elem;
+                })
+                if (empty_search && !(hovered_card?.isSameNode(steps.lastChild) || hovered_card?.isSameNode(steps.firstChild))) hovered_card = null;
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                card_elem.style.width = ""
+                card_elem.style.left = "";
+                card_elem.style.top = "";
+                steps.classList.remove('dragging');
+                document.body.classList.remove('no-select');
+                card_elem.classList.remove('dragged');
+
+                if (hovered_card?.isSameNode(steps.firstChild)) return steps.prepend(card_elem), tutorial.steps.reorder();
+                if (!hovered_card || card_elem.isSameNode(hovered_card)) return;
+                hovered_card.after(card_elem);
+                tutorial.steps.reorder();
+            })
+        }
+        dragStepCardList();
     </script>
 
 </body>

@@ -4,9 +4,13 @@ body {
     overflow: hidden;
 }
 
-pre{
+pre {
     background-color: #d1d1d1;
     margin: 0;
+}
+
+.no-select {
+    user-select: none;
 }
 
 .pointer {
@@ -29,7 +33,7 @@ pre{
     display: none !important;
 }
 
-.go-home-btn{    
+.go-home-btn {
     cursor: pointer;
     position: fixed;
     left: 5%;
@@ -41,49 +45,49 @@ pre{
     animation: opacity-off .25s 3s forwards;
 }
 
-.go-home-btn:hover{
+.go-home-btn:hover {
     width: 125px;
     transform: translateX(-40px);
 }
 
-.go-home-btn .back{
+.go-home-btn .back {
     opacity: 0;
     transform: translateX(-10px);
     transition: .1s;
 }
 
-.go-home-btn:hover .back{
+.go-home-btn:hover .back {
     opacity: 1;
     transform: translateX(0);
     transition: .5s;
 }
 
-.go-home-btn i{
+.go-home-btn i {
     min-width: 50px;
     text-align: center;
 }
 
-.a-link-container{
+.a-link-container {
     display: none;
 }
 
-.a-link-container.show{
+.a-link-container.show {
     display: block;
 }
 
-.finalizar{
+.finalizar {
     position: absolute;
     bottom: 10px;
 }
 
-#tutorial_form{
+#tutorial_form {
     height: 100%;
-    overflow-y: auto;    
+    overflow-y: auto;
 }
 
-.alert-container{
+.alert-container {
     z-index: -1;
-    opacity: 0;    
+    opacity: 0;
     position: fixed !important;
     bottom: -10%;
     transition: .25s;
@@ -92,13 +96,13 @@ pre{
     border-radius: 25px;
 }
 
-.alert-container.show{
+.alert-container.show {
     z-index: 99;
     opacity: 1;
     bottom: 10%;
 }
 
-.alert{
+.alert {
     transform: translateX(-160px);
     height: 160px;
     padding-left: 180px;
@@ -124,4 +128,63 @@ pre{
     right: 5px;
     top: 0px;
     font-size: 13px;
+}
+
+[tutorial="steps"] {
+    padding-bottom: 200px;
+}
+
+.video-container {
+    display: none;
+}
+
+.video-container[yt-link] {
+    display: block;
+}
+
+[tutorial="steps"] .card {
+    transition: .25s;
+    animation: fit_back .5s forwards;
+    z-index: 0;
+}
+
+[tutorial="steps"] .card::before {
+    font-family: 'FontAwesome';
+    content: '\f58e';
+    position: absolute;
+    right: 0%;
+    top: 20%;
+    font-size: 24px;
+    transition: .25s;
+    width: 5%;
+    visibility: hidden;
+    opacity: 0;
+}
+
+[tutorial="steps"]:not(.dragging) .card:hover::before {
+    visibility: visible;
+    opacity: 1;
+}
+
+[tutorial="steps"] .card.dragged {
+    pointer-events: none;
+    z-index: 10;
+    transition: 0s;
+}
+
+[tutorial="steps"].dragging .card:hover+.card:not(.dragged) {
+    transform: translateY(50%);
+    animation: none;
+    transition: .25s;
+    opacity: .5;
+}
+
+@keyframes fit_back {
+    from {
+        transform: translateY(20%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
 }
