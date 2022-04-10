@@ -59,7 +59,7 @@ class MySql_Handler extends Db_Helper implements Db_Handler
     }
 
     function saveTutorialEntity($data){
-        $this->conn->query("INSERT INTO tezus_tutorials VALUES (0, ".json_encode($data).")");
+        $this->conn->query("INSERT INTO tezus_tutorials VALUES (0, ".json_encode($data, JSON_UNESCAPED_UNICODE).")");
         $this->conn->commit();
         $this->finishDbConnection();
         return $data;
